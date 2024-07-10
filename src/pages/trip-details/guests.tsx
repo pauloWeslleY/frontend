@@ -1,30 +1,42 @@
-import { CircleDashed, UserCog } from "lucide-react";
-import { Button } from "../../components/button";
+import { CircleCheck, CircleDashed, UserCog } from "lucide-react";
+import { Button, GuestItem } from "../../components/ui";
 
 export function Guests() {
   return (
     <div className="space-y-6">
       <h2 className="font-semibold text-xl">Convidados</h2>
       <div className="space-y-5">
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">Jessica White</span>
-            <span className="block text-sm text-zinc-400 truncate">
-              jessica.white44@yahoo.com
-            </span>
-          </div>
-          <CircleDashed className="text-zinc-400 size-5 shrink-0" />
-        </div>
+        <GuestItem
+          text="Rodney White"
+          description="ford_prosacco@hotmail.com"
+          icon={
+            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
+          }
+        />
 
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">Dr. Rita Pacocha</span>
-            <span className="block text-sm text-zinc-400 truncate">
-              lacy.stiedemann@gmail.com
-            </span>
-          </div>
-          <CircleDashed className="text-zinc-400 size-5 shrink-0" />
-        </div>
+        <GuestItem
+          text="Jessica White"
+          description="jessica.white44@yahoo.com"
+          icon={
+            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
+          }
+        />
+
+        <GuestItem
+          text="Wilfred Dickens III"
+          description="marian.hyatt@hotmail.com"
+          icon={
+            <CircleCheck className="size-5 text-lime-300" />
+          }
+        />
+
+        <GuestItem
+          text=""
+          description="lacy.stiedemann@gmail.com"
+          icon={
+            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
+          }
+        />
       </div>
 
       <Button variant="secondary" size="full">

@@ -1,5 +1,5 @@
 import { ArrowRight, Calendar, MapPin, Settings2 } from 'lucide-react'
-import { Button } from '../../../components/button'
+import { Form, Input, Separator, Button } from '../../../components/ui'
 
 interface DestinationAndDateStepProps {
   isGuestsInputOpen: boolean
@@ -14,17 +14,25 @@ export function DestinationAndDateStep({
 }: DestinationAndDateStepProps) {
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3">
-      <div className="flex items-center gap-2 flex-1">
-        <MapPin className="size-5 text-zinc-400" />
-        <input disabled={isGuestsInputOpen} type="text" placeholder="Para onde você vai?" className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1" />
-      </div>
+      <Form.Group icon={MapPin} className='flex-1'>
+        <Input
+          disabled={isGuestsInputOpen}
+          type="text"
+          placeholder="Para onde você vai?"
+          className="flex-1"
+        />
+      </Form.Group>
 
-      <div className="flex items-center gap-2">
-        <Calendar className="size-5 text-zinc-400" />
-        <input disabled={isGuestsInputOpen} type="text" placeholder="Quando?" className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
-      </div>
+      <Form.Group icon={Calendar}>
+        <Input
+          disabled={isGuestsInputOpen}
+          type="text"
+          placeholder="Quando?"
+          className="w-40"
+        />
+      </Form.Group>
 
-      <div className="w-px h-6 bg-zinc-800" />
+      <Separator variant='vertical' />
 
       {isGuestsInputOpen ? (
         <Button onClick={closeGuestsInput} variant="secondary">
