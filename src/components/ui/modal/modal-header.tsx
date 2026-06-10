@@ -3,12 +3,12 @@ import { ReactNode } from "react";
 
 interface ModalHeaderProps {
   title: string
-  children: ReactNode
+  children?: ReactNode
   onClose: () => void
 }
 
 export function ModalHeader({
-  title,
+  title = '',
   children,
   onClose,
 }: ModalHeaderProps) {
@@ -21,7 +21,7 @@ export function ModalHeader({
           <X className="size-5 text-zinc-400" />
         </button>
       </div>
-      {children}
+      {children && children}
     </div>
   )
 }

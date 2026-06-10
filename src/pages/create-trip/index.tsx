@@ -1,71 +1,29 @@
-import { FormEvent, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { InviteGuestsModal } from './invite-guests-modal'
 import { ConfirmTripModal } from './confirm-trip-modal'
 import { InviteGuestStep, DestinationAndDateStep } from './steps'
+import { useCreateTrip } from './hooks'
 
 export function CreateTripPage() {
-  const navigate = useNavigate()
-
-  const [isGuestsInputOpen, setIsGuestsInputOpen] = useState(false)
-  const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false)
-  const [isConfirmTripModalOpen, setIsConfirmTripModalOpen] = useState(false)
-
-  const [emailsToInvite, setEmailsToInvite] = useState([
-    'weslleydesign13@gmail.com'
-  ])
-
-  function openGuestsInput() {
-    setIsGuestsInputOpen(true)
-  }
-
-  function closeGuestsInput() {
-    setIsGuestsInputOpen(false)
-  }
-
-  function openGuestsModal() {
-    setIsGuestsModalOpen(true)
-  }
-
-  function closeGuestsModal() {
-    setIsGuestsModalOpen(false)
-  }
-
-  function openConfirmTripModal() {
-    setIsConfirmTripModalOpen(true)
-  }
-
-  function closeConfirmTripModal() {
-    setIsConfirmTripModalOpen(false)
-  }
-
-  function addNewEmailToInvite(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-
-    const data = new FormData(event.currentTarget)
-    const email = data.get('email')?.toString()
-
-    if (!email) {
-      return
-    }
-
-    if (emailsToInvite.includes(email)) {
-      return alert('Email já existente!!')
-    }
-
-    setEmailsToInvite((prevState) => [...prevState, email])
-
-    event.currentTarget.reset()
-  }
-
-  function deleteEmailFromInvite(emailToRemove: string) {
-    setEmailsToInvite((prevState) => prevState.filter(props => props !== emailToRemove))
-  }
-
-  function createTrip(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    navigate('/trips/123')
-  }
+  const {
+    isGuestsInputOpen,
+    isGuestsModalOpen,
+    isConfirmTripModalOpen,
+    addNewEmailToInvite,
+    closeConfirmTripModal,
+    closeGuestsInput,
+    closeGuestsModal,
+    createTrip,
+    deleteEmailFromInvite,
+    openConfirmTripModal,
+    openGuestsInput,
+    openGuestsModal,
+    setDestination,
+    setEventStartEndDates,
+    setOwnerEmail,
+    setOwnerName,
+    eventStartEndDates,
+    emailsToInvite,
+  } = useCreateTrip()
 
   return (
     <div className="h-screen flex items-center justify-center bg-pattern bg-no-repeat bg-center">
@@ -81,6 +39,9 @@ export function CreateTripPage() {
             isGuestsInputOpen={isGuestsInputOpen}
             closeGuestsInput={closeGuestsInput}
             openGuestsInput={openGuestsInput}
+            setDestination={setDestination}
+            setEventStartEndDates={setEventStartEndDates}
+            eventStartEndDates={eventStartEndDates}
           />
 
           {isGuestsInputOpen && (
@@ -111,6 +72,8 @@ export function CreateTripPage() {
         <ConfirmTripModal
           createTrip={createTrip}
           closeConfirmTripModal={closeConfirmTripModal}
+          setOwnerName={setOwnerName}
+          setOwnerEmail={setOwnerEmail}
         />
       )}
     </div>

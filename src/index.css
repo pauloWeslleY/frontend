@@ -6,6 +6,26 @@
   min-width: 0;
 }
 
+::-webkit-scrollbar {
+  width: 0.85rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BEF264;
+  border-radius: 2.2rem;
+}
+
 input {
   color-scheme: dark;
+}
+
+.rdp-day_selected,
+.rdp-day_selected:focus-visible,
+.rdp-day_selected:hover {
+  color: #1A2E05;
+  background-color: #BEF264;
 }

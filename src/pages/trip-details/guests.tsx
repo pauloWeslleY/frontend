@@ -1,48 +1,40 @@
-import { CircleCheck, CircleDashed, UserCog } from "lucide-react";
-import { Button, GuestItem } from "../../components/ui";
+import { UserCog } from "lucide-react";
+import { Button, Participant } from "../../components/ui";
+import { CreateInviteModal } from "./components";
+import { useParticipant } from "./hooks";
 
 export function Guests() {
+  const {
+    participants,
+    openModalManagersParticipant,
+    openModalCreateParticipant,
+    closeModalCreateParticipant
+  } = useParticipant()
+
   return (
     <div className="space-y-6">
       <h2 className="font-semibold text-xl">Convidados</h2>
       <div className="space-y-5">
-        <GuestItem
-          text="Rodney White"
-          description="ford_prosacco@hotmail.com"
-          icon={
-            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
-          }
-        />
-
-        <GuestItem
-          text="Jessica White"
-          description="jessica.white44@yahoo.com"
-          icon={
-            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
-          }
-        />
-
-        <GuestItem
-          text="Wilfred Dickens III"
-          description="marian.hyatt@hotmail.com"
-          icon={
-            <CircleCheck className="size-5 text-lime-300" />
-          }
-        />
-
-        <GuestItem
-          text=""
-          description="lacy.stiedemann@gmail.com"
-          icon={
-            <CircleDashed className="text-zinc-400 size-5 shrink-0" />
-          }
-        />
+        {participants?.map((participant, index) => (
+          <Participant
+            key={participant.id}
+            name={participant.name || `Convidado ${index}`}
+            email={participant.email}
+            hasActive={participant.is_confirmed}
+          />
+        ))}
       </div>
 
-      <Button variant="secondary" size="full">
+      <Button variant="secondary" size="full" onClick={openModalCreateParticipant}>
         <UserCog className="size-5" />
         Gerenciar convidados
       </Button>
+
+      {openModalManagersParticipant && (
+        <CreateInviteModal
+          onClose={closeModalCreateParticipant}
+        />
+      )}
     </div>
   )
 }

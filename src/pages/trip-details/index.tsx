@@ -1,21 +1,17 @@
-import { useState } from "react";
 import { Plus } from "lucide-react";
-import { CreateActivityModal } from "./create-activity-modal";
 import { ImportantLinks } from "./important-links";
 import { Guests } from "./guests";
 import { Activities } from "./activities";
 import { DestinationAndDateHeader } from "./destination-and-date-header";
+import { CreateActivityModal } from "./components";
+import { useTripDetails } from "./hooks";
 
 export function TripDetails() {
-  const [isCreateActivityModalOpen, setIsCreateActivityModalOpen] = useState(false)
-
-  function openCreateActivityModal() {
-    setIsCreateActivityModalOpen(true)
-  }
-
-  function closeCreateActivityModal() {
-    setIsCreateActivityModalOpen(false)
-  }
+  const {
+    isCreateActivityModalOpen,
+    openCreateActivityModal,
+    closeCreateActivityModal
+  } = useTripDetails()
 
   return (
     <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
@@ -37,7 +33,9 @@ export function TripDetails() {
 
         <div className="w-80 space-y-6">
           <ImportantLinks />
+
           <div className="w-full h-px bg-zinc-800" />
+
           <Guests />
         </div>
       </main>

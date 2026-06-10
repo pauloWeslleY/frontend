@@ -1,36 +1,44 @@
-import { Link2, Plus } from "lucide-react";
-import { Button } from "../../components/ui";
+import { Plus } from "lucide-react";
+import { Button, LinkItem } from "../../components/ui";
+import { useLinks } from "./hooks";
+import { CreateLinkModal } from "./components";
 
 export function ImportantLinks() {
+  const {
+    links,
+    openCreateLinkModal,
+    openModalCreateLink,
+    closeModalCreateLink
+  } = useLinks()
+
   return (
     <div className="space-y-6">
       <h2 className="font-semibold text-xl">Links Importantes</h2>
       <div className="space-y-5">
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">Reserva AirBnB</span>
-            <a href="#" className="block text-xs text-zinc-400 truncate hover:text-zinc-200">
-              https://www.airbnb.com.br/rooms/104700011/104700011104700011104700011104700011
-            </a>
-          </div>
-          <Link2 className="text-zinc-400 size-5 shrink-0" />
-        </div>
+        {links.length === 0 && (
+          <p className="text-zinc-500 text-sm">Nenhum link cadastrado.</p>
+        )}
 
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <span className="block font-medium text-zinc-100">Reserva AirBnB</span>
-            <a href="#" className="block text-xs text-zinc-400 truncate hover:text-zinc-200">
-              https://www.airbnb.com.br/rooms/104700011/104700011104700011104700011104700011
-            </a>
-          </div>
-          <Link2 className="text-zinc-400 size-5 shrink-0" />
-        </div>
+        {links.length > 0 && links.map((link) => (
+          <LinkItem
+            key={link.id}
+            text={link.title}
+            href={link.url}
+          />
+        ))}
       </div>
 
-      <Button variant="secondary" size="full">
+      <Button variant="secondary" size="full" onClick={openModalCreateLink}>
         <Plus className="size-5" />
         Cadastrar novo link
       </Button>
+
+      {openCreateLinkModal && (
+        <CreateLinkModal
+          onClose={closeModalCreateLink}
+          links={links}
+        />
+      )}
     </div>
   )
 }
